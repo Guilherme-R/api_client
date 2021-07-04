@@ -7,5 +7,4 @@ import client_api.models.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long>{
-
 }

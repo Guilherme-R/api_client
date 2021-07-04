@@ -17,10 +17,18 @@ public class Client {
 	public Client() {
 	}
 
-	public Client(String name, String email) {
-		super();
+	public Client(Long id, String name, String email) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
