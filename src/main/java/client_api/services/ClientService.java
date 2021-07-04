@@ -21,10 +21,14 @@ public class ClientService {
 		return list;
 	}
 
-	public Client findById(Long id) {
+	public Client findById(Long id){
 		Optional<Client> client = repository.findById(id);
 		return client.get();
 	}
+	
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}	
 	
 	public Client insert(Client obj) {
 		return repository.save(obj);
@@ -33,4 +37,6 @@ public class ClientService {
 	public Client fromDto(ClientDto objDto) {
 		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
+
+
 }
