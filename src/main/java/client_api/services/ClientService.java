@@ -22,18 +22,30 @@ public class ClientService {
 	}
 
 	public Client findById(Long id){
-		Optional<Client> client = repository.findById(id);
-		return client.get();
+		Optional<Client> obj = repository.findById(id);
+		return obj.get();
+	}
+	
+	public Client insert(Client obj) {
+		return repository.save(obj);
 	}
 	
 	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}	
 	
-	public Client insert(Client obj) {
-		return repository.save(obj);
-	}
+	public Client update(Client obj) {
+		Optional<Client> optional = repository.findById(obj.getId());
+		Client newObj = optional.get();
+		updateData(newObj, obj);
+		return repository.save(newObj);
+	}	
 	
+	private void updateData(Client newObj, Client obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
+
 	public Client fromDto(ClientDto objDto) {
 		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}

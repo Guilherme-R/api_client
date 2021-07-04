@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,15 +37,14 @@ public class ClientController {
 	}
 	
 	@GetMapping("/{id}")
-	public ClientDto findById(@PathVariable Long id) {
-		Client client = service.findById(id);
-		ClientDto clientDto = new ClientDto(client);
-		return clientDto;
+	public ResponseEntity<ClientDto> findById(@PathVariable Long id) {
+		Client obj = service.findById(id);
+		return ResponseEntity.ok().body(new ClientDto(obj));
 	}
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> register(@RequestBody ClientDto objDto){
+	public ResponseEntity<Void> register(@RequestBody ClientDto objDto){
 		Client obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -52,8 +52,16 @@ public class ClientController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id){
+	public ResponseEntity<Void> deleteById(@PathVariable Long id){
 		service.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody ClientDto objDto, @PathVariable Long id){
+		Client obj = service.fromDto(objDto);
+		obj.setId(id);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 }
