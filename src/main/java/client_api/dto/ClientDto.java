@@ -2,6 +2,9 @@ package client_api.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
+
+import javax.persistence.OneToMany;
 
 import client_api.models.Adress;
 import client_api.models.Client;
@@ -14,7 +17,7 @@ public class ClientDto implements Serializable {
 	private String LastName;
 	private String email;
 	private String phone;
-	private Instant dateCreate;
+	private LocalDateTime dateCreate;
 	
 	private Adress adress;
 	
@@ -54,7 +57,7 @@ public class ClientDto implements Serializable {
 		return phone;
 	}
 
-	public Instant getDateCreate() {
+	public LocalDateTime getDateCreate() {
 		return dateCreate;
 	}
 

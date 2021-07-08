@@ -1,12 +1,13 @@
 package client_api.models;
 
 import java.time.Instant;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Client {
@@ -18,21 +19,21 @@ public class Client {
 	private String lastName;
 	private String email;
 	private String phone;
-	private Instant dateCreate;
+	private LocalDateTime dateCreate = LocalDateTime.now();
 	
+	@ManyToOne
 	private Adress adress;
 	
 	public Client() {
 	}
 
-	public Client(Long id, String name, String sobrenome, String email, String phone, Instant dateCreate,
+	public Client(Long id, String name, String sobrenome, String email, String phone, LocalDateTime dateCreate,
 			Adress adress) {
 		this.id = id;
 		this.name = name;
 		this.lastName = sobrenome;
 		this.email = email;
 		this.phone = phone;
-		this.dateCreate = dateCreate;
 		this.adress = adress;
 	}
 
@@ -76,11 +77,11 @@ public class Client {
 		this.phone = phone;
 	}
 
-	public Instant getDateCreate() {
+	public LocalDateTime getDateCreate() {
 		return dateCreate;
 	}
 
-	public void setDateCreate(Instant dateCreate) {
+	public void setDateCreate(LocalDateTime dateCreate) {
 		this.dateCreate = dateCreate;
 	}
 

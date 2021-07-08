@@ -1,21 +1,38 @@
 package client_api.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+
+@Entity
 public class State implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	private String name;
 	private String abbreviation;
 	
+	@OneToMany
+	private List<City> citys = new ArrayList<>();
+	
 	public State() {
 	}
 
-	public State(String id, String name, String abbreviation) {
+	public State(String id, String name, String abbreviation, List<City> citys) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.abbreviation = abbreviation;
+		this.citys = citys;
 	}
 
 	public String getId() {
@@ -42,13 +59,16 @@ public class State implements Serializable {
 		this.abbreviation = abbreviation;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public List<City> getCitys() {
+		return citys;
 	}
 
-	@Override
-	public String toString() {
-		return "State [id=" + id + ", name=" + name + ", abbreviation=" + abbreviation + "]";
+	public void addCitys(List<City> citys) {
+		this.citys.addAll(citys);
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }
