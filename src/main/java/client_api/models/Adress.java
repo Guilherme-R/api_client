@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,9 +25,10 @@ public class Adress implements Serializable {
 	private String number;
 	
 	@ManyToOne
+	@JoinColumn(name = "CITY_ID")
 	private City city;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "adress")
 	private List<Client> clients = new ArrayList<>();
 	
 	public Adress() {

@@ -5,11 +5,13 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import client_api.dto.ClientDto;
 import client_api.models.Client;
 import client_api.repositories.ClientRepository;
+import client_api.services.exceptions.DatabaseException;
 import client_api.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -33,8 +35,10 @@ public class ClientService {
 	}
 	
 	public void deleteById(Long id) {
-		if(findById(id) != null) {
+		try {
 			repository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			throw new DatabaseException(e.getMessage());
 		}
 	}	
 	
