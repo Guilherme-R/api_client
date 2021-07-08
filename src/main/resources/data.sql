@@ -1,3 +1,6 @@
-INSERT INTO CLIENT(name, email) VALUES('Pamela', 'pamela@email.com');
-INSERT INTO CLIENT(name, email) VALUES('Guilherme', 'guilherme@email.com');
-INSERT INTO CLIENT(name, email) VALUES('Bob', 'bob@email.com');
+
+
+INSERT INTO CLIENT(name, email) values 
+('Pamela', 'pamela@email.com'),
+('Guilherme', 'guilherme@email.com'),
+('Bob', 'bob@email.com');

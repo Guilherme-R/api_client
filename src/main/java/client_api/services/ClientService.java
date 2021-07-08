@@ -1,6 +1,7 @@
 package client_api.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,21 @@ public class ClientService {
 	}
 	
 	public void deleteById(Long id) {
-		repository.deleteById(id);
+		if(findById(id) != null) {
+			repository.deleteById(id);
+		}
 	}	
 	
 	public Client update(Client obj) {
-		Optional<Client> optional = repository.findById(obj.getId());
-		Client newObj = optional.get();
-		updateData(newObj, obj);
-		return repository.save(newObj);
+		try {
+			Optional<Client> optional = repository.findById(obj.getId());
+			Client newObj = optional.get();
+			updateData(newObj, obj);
+			return repository.save(newObj);
+		}
+		catch(NoSuchElementException e){
+			throw new ResourceNotFoundException(obj.getId());
+		}
 	}	
 	
 	private void updateData(Client newObj, Client obj) {
@@ -48,8 +56,7 @@ public class ClientService {
 	}
 
 	public Client fromDto(ClientDto objDto) {
-		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail());
+		return new Client(objDto.getId(), objDto.getName(), objDto.getLastName(), objDto.getEmail(), 
+				objDto.getPhone(), objDto.getDateCreate(), objDto.getAdress());
 	}
-
-
 }

@@ -1,5 +1,8 @@
 package client_api.models;
 
+import java.time.Instant;
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,17 +15,27 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String lastName;
 	private String email;
+	private String phone;
+	private Instant dateCreate;
+	
+	private Adress adress;
 	
 	public Client() {
 	}
 
-	public Client(Long id, String name, String email) {
+	public Client(Long id, String name, String sobrenome, String email, String phone, Instant dateCreate,
+			Adress adress) {
 		this.id = id;
 		this.name = name;
+		this.lastName = sobrenome;
 		this.email = email;
+		this.phone = phone;
+		this.dateCreate = dateCreate;
+		this.adress = adress;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -39,6 +52,14 @@ public class Client {
 		this.name = name;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String sobrenome) {
+		this.lastName = sobrenome;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -46,9 +67,34 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
 	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Instant getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Instant dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public Adress getAdress() {
+		return adress;
+	}
+
+	public void setAdress(Adress adr) {
+		this.adress = adr;
+	}
+
 	@Override
 	public String toString() {
-		return name + "" + email;
+		return "Client [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", phone="
+				+ phone + ", dateCreate=" + dateCreate + ", adress=" + adress + "]";
 	}
 }
