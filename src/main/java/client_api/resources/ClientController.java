@@ -43,8 +43,7 @@ public class ClientController {
 	}
 	
 	@PostMapping
-	@Transactional
-	public ResponseEntity<Void> register(@RequestBody ClientDto objDto){
+	public ResponseEntity<Void> insert(@RequestBody ClientDto objDto){
 		Client obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

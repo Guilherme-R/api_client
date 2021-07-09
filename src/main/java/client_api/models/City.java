@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -20,10 +25,13 @@ public class City implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
+	
+	@NotNull @NotEmpty
 	private String name;
 	
 	@ManyToOne
 	@JoinColumn(name = "STATE_ID")
+	@NotNull @NotEmpty
 	private State state;
 	
 	@OneToMany(mappedBy = "city")
