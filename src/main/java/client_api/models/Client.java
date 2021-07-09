@@ -1,6 +1,5 @@
 package client_api.models;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -17,9 +16,11 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	@JoinColumn(name = "LAST_NAME")
 	private String lastName;
 	private String email;
 	private String phone;
+	@JoinColumn(name = "DATE_CREATE")
 	private LocalDateTime dateCreate = LocalDateTime.now();
 	
 	@ManyToOne

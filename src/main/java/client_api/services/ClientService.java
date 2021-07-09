@@ -56,7 +56,10 @@ public class ClientService {
 	
 	private void updateData(Client newObj, Client obj) {
 		newObj.setName(obj.getName());
+		newObj.setLastName(obj.getLastName());
 		newObj.setEmail(obj.getEmail());
+		newObj.setPhone(obj.getPhone());
+		newObj.setDateCreate(obj.getDateCreate());
 	}
 
 	public Client fromDto(ClientDto objDto) {
