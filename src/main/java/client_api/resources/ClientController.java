@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import client_api.models.Client;
-import client_api.resources.dto.ClientDto;
+import client_api.resources.dto.ClientDTO;
+import client_api.resources.dto.ClientDTOSummary;
 import client_api.services.ClientService;
 
 @RestController
@@ -28,21 +29,21 @@ public class ClientController {
 	ClientService service;
 	
 	@GetMapping
-	public ResponseEntity<List<ClientDto>> findAll() {
+	public ResponseEntity<List<ClientDTOSummary>> findAll() {
 		List<Client> list = service.findAll();
-		List<ClientDto> listDto = list.stream().map(x -> new ClientDto(x)).collect(Collectors.toList());
+		List<ClientDTOSummary> listDto = list.stream().map(x -> new ClientDTOSummary(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ClientDto> findById(@PathVariable Long id) {
+	public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
 		Client obj = service.findById(id);
-		return ResponseEntity.ok().body(new ClientDto(obj));
+		return ResponseEntity.ok().body(new ClientDTO(obj));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody ClientDto objDto){
-		System.out.println(objDto.toString());
+	public ResponseEntity<Void> insert(@RequestBody ClientDTO objDto){
+		objDto.setId(null);
 		Client obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -56,10 +57,10 @@ public class ClientController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ClientDto> update(@RequestBody ClientDto objDto, @PathVariable Long id){
+	public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO objDto, @PathVariable Long id){
 		Client obj = service.fromDto(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
-		return ResponseEntity.ok().body(new ClientDto(obj));
+		return ResponseEntity.ok().body(new ClientDTO(obj));
 	}
 }

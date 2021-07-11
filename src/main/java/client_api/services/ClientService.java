@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import client_api.models.Adress;
 import client_api.models.Client;
 import client_api.repositories.ClientRepository;
-import client_api.resources.dto.ClientDto;
+import client_api.resources.dto.ClientDTO;
 import client_api.services.exceptions.DatabaseException;
 import client_api.services.exceptions.ResourceNotFoundException;
 
@@ -70,7 +70,7 @@ public class ClientService {
 		newObj.setDateCreate(obj.getDateCreate());
 	}
 
-	public Client fromDto(ClientDto objDto) {
+	public Client fromDto(ClientDTO objDto) {
 		return new Client(objDto.getId(), objDto.getName(), objDto.getLastName(), objDto.getEmail(), 
 				objDto.getPhone(), objDto.getDateCreate(), objDto.getAdress());
 	}
