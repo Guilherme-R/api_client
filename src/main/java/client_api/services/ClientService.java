@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import client_api.dto.ClientDto;
+import client_api.models.Adress;
 import client_api.models.Client;
 import client_api.repositories.ClientRepository;
+import client_api.resources.dto.ClientDto;
 import client_api.services.exceptions.DatabaseException;
 import client_api.services.exceptions.ResourceNotFoundException;
 
@@ -20,6 +21,9 @@ public class ClientService {
 	@Autowired
 	private ClientRepository repository;
 	
+	@Autowired
+	private AdressService adressService;
+	
 	public List<Client> findAll(){
 		List<Client> list = repository.findAll();
 		return list;
@@ -27,10 +31,14 @@ public class ClientService {
 
 	public Client findById(Long id){
 		Optional<Client> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Client client = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		client.setAdress(adressService.findById(client.getAdress().getId()));
+		return client;
 	}
 	
 	public Client insert(Client obj) {
+//		Adress adress = adressService.findById(obj.getAdress().getId());
+//		obj.setAdress(adress);
 		return repository.save(obj);
 	}
 	

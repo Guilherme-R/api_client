@@ -8,12 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
-import com.sun.istack.NotNull;
 
 @Entity
 public class Client {
@@ -22,24 +16,20 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull @NotEmpty
 	private String name;
 	
-	@JoinColumn(name = "LAST_NAME")
-	@NotNull @NotEmpty
+	@JoinColumn(name = "last_name")
 	private String lastName;
 	
-	@Email
 	private String email;
 	
 	private String phone;
 	
-	@JoinColumn(name = "DATE_CREATE")
-	@NotNull
+	@JoinColumn(name = "date_created")
 	private LocalDateTime dateCreate = LocalDateTime.now();
 	
 	@ManyToOne
-	@JoinColumn(name = "ADRESS_ID")
+	@JoinColumn(name = "adress_id")
 	private Adress adress;
 	
 	public Client() {

@@ -10,13 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
-
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Adress implements Serializable {
@@ -24,42 +20,38 @@ public class Adress implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Long id;
 	
-	@NotNull @NotEmpty
 	private String street;
 	
-	@NotNull @NotEmpty
 	private String district;
 
-	@NotNull @NotEmpty
 	private String number;
 	
 	@ManyToOne
-	@JoinColumn(name = "CITY_ID")
-	@NotNull @NotEmpty
+	@JoinColumn(name = "city_id")
 	private City city;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "adress")
-	@NotNull @NotEmpty
 	private List<Client> clients = new ArrayList<>();
 	
 	public Adress() {
 	}
 
-	public Adress(String id, String street, String district, String number, City city) {
+	public Adress(Long id, String street, String district, String number) {
 		this.id = id;
 		this.street = street;
 		this.district = district;
 		this.number = number;
-		this.city = city;
+//		this.city = city;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -95,14 +87,14 @@ public class Adress implements Serializable {
 		this.city = city;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public List<Client> getClients() {
+		return clients;
 	}
-
-	@Override
-	public String toString() {
-		return "Adress [id=" + id + ", street=" + street + ", district=" + district + ", number=" + number + ", city="
-				+ city + "]";
-	}
-	
+//
+//	@Override
+//	public String toString() {
+//		return "Adress [id=" + id + ", street=" + street + ", district=" + district + ", number=" + number + ", city="
+//				+ city + "]";
+//	}
+//	
 }

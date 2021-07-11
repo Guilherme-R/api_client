@@ -9,11 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
-
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -24,12 +21,11 @@ public class State implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
-	@NotNull @NotEmpty
 	private String name;
 	
-	@NotNull @NotEmpty
 	private String abbreviation;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "state")
 	private List<City> citys = new ArrayList<>();
 	
@@ -70,14 +66,6 @@ public class State implements Serializable {
 
 	public List<City> getCitys() {
 		return citys;
-	}
-
-	public void addCitys(List<City> citys) {
-		this.citys.addAll(citys);
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 }
