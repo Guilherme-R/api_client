@@ -8,25 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Table(name = "tb_client")
 public class Client {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private String name;
-	
-	@JoinColumn(name = "last_name")
 	private String lastName;
-	
 	private String email;
-	
 	private String phone;
 	
-	@JoinColumn(name = "date_created")
-	private LocalDateTime dateCreate = LocalDateTime.now();
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone= "GMT")
+	private LocalDateTime dateCreate;
 	
 	@ManyToOne
 	@JoinColumn(name = "adress_id")
@@ -35,13 +34,13 @@ public class Client {
 	public Client() {
 	}
 
-	public Client(Long id, String name, String sobrenome, String email, String phone, LocalDateTime dateCreate,
-			Adress adress) {
+	public Client(Long id, String name, String sobrenome, String email, String phone, Adress adress) {
 		this.id = id;
 		this.name = name;
 		this.lastName = sobrenome;
 		this.email = email;
 		this.phone = phone;
+		this.dateCreate = LocalDateTime.now();
 		this.adress = adress;
 	}
 

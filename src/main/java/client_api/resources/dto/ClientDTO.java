@@ -3,6 +3,8 @@ package client_api.resources.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import client_api.models.Adress;
 import client_api.models.Client;
 
@@ -14,6 +16,8 @@ public class ClientDTO implements Serializable {
 	private String LastName;
 	private String email;
 	private String phone;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone= "GMT")
 	private LocalDateTime dateCreate;
 	
 	private Adress adress;
